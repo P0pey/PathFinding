@@ -1,5 +1,6 @@
 from argparse import *
 from termcolor import colored
+import time
 
 def End_position(m):
     for i in range(len(m)):
@@ -22,6 +23,9 @@ def extand(m):
     ok = False
     while not ok:
         m, ok, x, y = __extand(m)
+        print_maze(m)
+        print()
+        time.sleep(0.1)
     return m, x, y
 
 def __extand(m):
@@ -77,9 +81,12 @@ def recover(x, y, m):
         else:
             m[x][y] = '<'
             y -= 1
+        print_maze(m)
+        print()
+        time.sleep(0.1)
     return m
 
-def print_maze(m):
+def print_maze_end(m):
     for line in m:
         for c in line:
             if c.lower() in ['d', 'u', 'l', 'r']:
@@ -90,6 +97,12 @@ def print_maze(m):
                 print(colored('@', 'green'), end='')
             else:
                 print(c, end='')
+        print()
+
+def print_maze(m):
+    for line in m:
+        for c in line:
+            print(c, end='')
         print()
 
 def maze2list(m):
@@ -121,5 +134,5 @@ if __name__ == "__main__":
     maze, x_s, y_s = extand(maze)
 
     maze = recover(x_s, y_s, maze)
-    print_maze(maze)
+    print_maze_end(maze)
 
